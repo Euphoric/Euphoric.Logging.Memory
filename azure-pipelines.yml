@@ -24,11 +24,11 @@ steps:
   displayName: Test
   inputs:
     command: 'test'
-    arguments: '--no-build --logger trx --results-directory TestResults --configuration $(buildConfiguration)'
+    arguments: '--no-build --logger trx --configuration $(buildConfiguration)'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'XUnit'
-    testResultsFiles: '**/TestResults/*.trx'
+    testResultsFiles: '**/*.trx'
     mergeTestResults: true
     failTaskOnFailedTests: true
