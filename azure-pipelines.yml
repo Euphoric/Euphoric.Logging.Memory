@@ -12,7 +12,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  buildConfiguration: 'Release'
+  BuildConfiguration: 'Release'
 
 steps:
 
@@ -20,16 +20,17 @@ steps:
   displayName: Build
   inputs:
     command: 'build'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: 'test'
-    arguments: '--no-build --logger trx --configuration $(buildConfiguration)'
+    arguments: '--no-build --logger trx --configuration $(BuildConfiguration)'
 
-- task: NuGetCommand@2
-  displayName: Pack NuGet package
+- task: DotNetCoreCLI@2
   inputs:
-    command: pack
-    versioningScheme: byBuildNumber
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    nobuild: true
+    versioningScheme: 'byBuildNumber'
