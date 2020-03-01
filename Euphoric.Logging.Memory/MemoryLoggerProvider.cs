@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions.Internal;
 
 namespace Euphoric.Logging.Memory
 {
@@ -30,7 +31,7 @@ namespace Euphoric.Logging.Memory
 
             public IDisposable BeginScope<TState>(TState state)
             {
-                throw new NotImplementedException();
+                return NullScope.Instance;
             }
         }
 

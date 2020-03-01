@@ -30,6 +30,16 @@ namespace Euphoric.Logging.Memory
         }
 
         [Fact]
+        public void Logger_scope_doesnt_throw()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+            var scope = logger.BeginScope("Scope");
+            Assert.NotNull(scope);
+            scope.Dispose();
+        }
+
+        [Fact]
         public void Logger_logs_message()
         {
             MemoryLoggerProvider provider = new MemoryLoggerProvider();
