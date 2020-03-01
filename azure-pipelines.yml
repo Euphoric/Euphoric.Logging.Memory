@@ -27,3 +27,9 @@ steps:
   inputs:
     command: 'test'
     arguments: '--no-build --logger trx --configuration $(buildConfiguration)'
+
+- task: NuGetCommand@2
+  displayName: Pack NuGet package
+  inputs:
+    command: pack
+    versioningScheme: byBuildNumber
