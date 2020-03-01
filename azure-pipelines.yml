@@ -31,6 +31,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: '**/*.csproj;!**/*.Test.csproj'
     nobuild: true
     versioningScheme: 'byBuildNumber'
+    verbosityPack: 'Normal'
