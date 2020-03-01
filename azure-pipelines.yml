@@ -24,7 +24,7 @@ steps:
   displayName: Test
   inputs:
     command: 'test'
-    arguments: '--no-build --logger trx --configuration $(buildConfiguration)'
+    arguments: '--no-build --logger trx --results-directory TestResults --configuration $(buildConfiguration)'
 
 - task: PublishTestResults@2
   inputs:
