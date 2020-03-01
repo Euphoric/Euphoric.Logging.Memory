@@ -25,10 +25,3 @@ steps:
   inputs:
     command: 'test'
     arguments: '--no-build --logger trx --configuration $(buildConfiguration)'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'XUnit'
-    testResultsFiles: '**/*.trx'
-    mergeTestResults: true
-    failTaskOnFailedTests: true
