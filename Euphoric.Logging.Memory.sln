@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Euphoric.Logging.Memory", "Euphoric.Logging.Memory\Euphoric.Logging.Memory.csproj", "{CA4F9303-4C55-4085-B470-391801D4D33F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euphoric.Logging.Memory.Test", "Euphoric.Logging.Memory.Test\Euphoric.Logging.Memory.Test.csproj", "{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA4F9303-4C55-4085-B470-391801D4D33F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA4F9303-4C55-4085-B470-391801D4D33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA4F9303-4C55-4085-B470-391801D4D33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA4F9303-4C55-4085-B470-391801D4D33F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E002404-C810-4844-9CE8-4EC0A5F015A6}
+	EndGlobalSection
+EndGlobal
