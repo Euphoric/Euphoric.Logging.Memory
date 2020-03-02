@@ -4,6 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Euphoric/Euphoric.Logging.Memory</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>Radek Falhar (radek.falhar@hotmail.com)</Authors>
+    <Product />
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>logging,test</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
