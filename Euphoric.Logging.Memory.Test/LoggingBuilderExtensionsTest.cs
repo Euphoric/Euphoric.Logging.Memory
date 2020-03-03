@@ -23,7 +23,7 @@ namespace Euphoric.Logging.Memory
             logger.LogInformation("Information message {number}", 13);
 
             // retrieve logged events from memory logger provider
-            var memoryLogger = sp.GetRequiredService<MemoryLoggerProvider>();
+            var memoryLogger = sp.GetRequiredService<IMemoryLogSource>();
             
             var logEntry = Assert.Single(memoryLogger.Logs);
             Assert.NotNull(logEntry);

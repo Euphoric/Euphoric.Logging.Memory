@@ -23,7 +23,8 @@ namespace Euphoric.Logging.Memory.Sample
             logger.LogError(new Exception("Exception text."), "Error message");
 
             // retrieve logged events from memory logger provider
-            var memoryLogger = sp.GetRequiredService<MemoryLoggerProvider>();
+            var memoryLogger = sp.GetRequiredService<IMemoryLogSource>();
+            
             foreach (var logEntry in memoryLogger.Logs)
             {
                 Console.WriteLine($"{logEntry.CategoryName}:{logEntry.Level}:{logEntry.Message}");

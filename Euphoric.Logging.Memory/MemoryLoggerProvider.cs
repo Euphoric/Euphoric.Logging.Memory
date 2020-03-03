@@ -8,7 +8,7 @@ namespace Euphoric.Logging.Memory
     /// <summary>
     /// Provider for logging into memory.
     /// </summary>
-    public class MemoryLoggerProvider : ILoggerProvider
+    public class MemoryLoggerProvider : ILoggerProvider, IMemoryLogSource
     {
         private class MemoryLogger : ILogger
         {
@@ -40,10 +40,8 @@ namespace Euphoric.Logging.Memory
 
         private readonly List<LogEntry> _logs = new List<LogEntry>();
 
-        /// <summary>
-        /// Collection of logged entries.
-        /// </summary>
-        public IReadOnlyCollection<LogEntry> Logs => _logs;
+        /// <inheritdoc />
+        public IReadOnlyList<LogEntry> Logs => _logs;
 
         /// <inheritdoc />
         public ILogger CreateLogger(string categoryName)

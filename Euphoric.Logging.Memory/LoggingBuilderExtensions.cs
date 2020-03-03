@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.Logging
         public static ILoggingBuilder AddMemoryLogger(this ILoggingBuilder logConfig)
         {
             var provider = new MemoryLoggerProvider();
-            logConfig.Services.AddSingleton(provider);
+            logConfig.Services.AddSingleton<IMemoryLogSource>(provider);
             return logConfig.AddProvider(provider);
         }
     }
