@@ -14,6 +14,13 @@ namespace Euphoric.Logging.Memory
         }
 
         [Fact]
+        public void Dispose_doesnt_fail()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            provider.Dispose();
+        }
+
+        [Fact]
         public void LoggerProvider_creates_Logger()
         {
             MemoryLoggerProvider provider = new MemoryLoggerProvider();
