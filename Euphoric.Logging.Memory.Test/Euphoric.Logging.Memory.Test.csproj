@@ -8,6 +8,8 @@
     <IsPackable>false</IsPackable>
 
     <RootNamespace>Euphoric.Logging.Memory</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>

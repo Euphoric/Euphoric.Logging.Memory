@@ -11,6 +11,9 @@
     <Product />
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>logging,test</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
