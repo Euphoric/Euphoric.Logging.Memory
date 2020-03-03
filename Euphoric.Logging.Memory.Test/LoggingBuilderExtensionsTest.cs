@@ -32,5 +32,16 @@ namespace Euphoric.Logging.Memory
             Assert.Equal(LogLevel.Information, logEntry.Level);
             Assert.Equal("Information message 13", logEntry.Message);
         }
+
+        [Fact]
+        public void Extension_methods_returns_same_loging_builder()
+        {
+            ServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging(logConfig =>
+            {
+                var res = logConfig.AddMemoryLogger();
+                Assert.Equal(logConfig, res);
+            });
+        }
     }
 }

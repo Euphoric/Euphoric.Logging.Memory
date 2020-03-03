@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Euphoric.Logging.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
-namespace Euphoric.Logging.Memory
+// ReSharper disable once CheckNamespace
+namespace Microsoft.Extensions.Logging
 {
     /// <summary>
     /// Extension for <see cref="ILoggingBuilder"/>
