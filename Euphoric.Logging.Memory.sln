@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Euphoric.Logging.Memory", "Euphoric.Logging.Memory\Euphoric.Logging.Memory.csproj", "{CA4F9303-4C55-4085-B470-391801D4D33F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euphoric.Logging.Memory.Test", "Euphoric.Logging.Memory.Test\Euphoric.Logging.Memory.Test.csproj", "{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Euphoric.Logging.Memory.Test", "Euphoric.Logging.Memory.Test\Euphoric.Logging.Memory.Test.csproj", "{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euphoric.Logging.Memory.Sample", "Euphoric.Logging.Memory.Sample\Euphoric.Logging.Memory.Sample.csproj", "{AA275979-C805-4DC8-AB89-DB14B9DC31CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA275979-C805-4DC8-AB89-DB14B9DC31CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA275979-C805-4DC8-AB89-DB14B9DC31CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA275979-C805-4DC8-AB89-DB14B9DC31CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA275979-C805-4DC8-AB89-DB14B9DC31CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
