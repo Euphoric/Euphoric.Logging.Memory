@@ -1,33 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Xunit;
 
-namespace Euphoric.Logging.Memory.Sample
+namespace Euphoric.Logging.Memory
 {
-    static class Program
+    public class LoggingBuilderExtensionsTest
     {
-        static void Main(string[] args)
+        [Fact]
+        public void Adds_memory_logger_and_retrieves_it_from_services()
         {
             // register memory logger
             ServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddLogging(logConfig =>
-                    logConfig
-                        .SetMinimumLevel(LogLevel.Trace)
-                        .AddMemoryLogger());
+                logConfig.AddMemoryLogger());
             var sp = serviceCollection.BuildServiceProvider();
 
-            // log messages
+            // log message
             var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger("TestProgram");
             logger.LogInformation("Information message {number}", 13);
-            logger.LogDebug("Debug message {text}", "PATH");
-            logger.LogError(new Exception("Exception text."), "Error message");
 
             // retrieve logged events from memory logger provider
             var memoryLogger = sp.GetRequiredService<MemoryLoggerProvider>();
-            foreach (var logEntry in memoryLogger.Logs)
-            {
-                Console.WriteLine($"{logEntry.CategoryName}:{logEntry.Level}:{logEntry.Message}");
-            }
+            
+            var logEntry = Assert.Single(memoryLogger.Logs);
+            Assert.NotNull(logEntry);
+
+            Assert.Equal("TestProgram", logEntry.CategoryName);
+            Assert.Equal(LogLevel.Information, logEntry.Level);
+            Assert.Equal("Information message 13", logEntry.Message);
         }
     }
 }
