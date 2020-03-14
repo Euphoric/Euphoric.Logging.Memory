@@ -24,7 +24,7 @@ namespace Euphoric.Logging.Memory
             public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
             {
                 var message = formatter(state, exception);
-                _provider._logs.Add(new LogEntry(logLevel, message, _name));
+                _provider._logs.Add(new LogEntry(logLevel, message, _name, exception));
             }
 
             public bool IsEnabled(LogLevel logLevel)

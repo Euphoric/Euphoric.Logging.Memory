@@ -60,5 +60,32 @@ namespace Euphoric.Logging.Memory
             Assert.Equal(LogLevel.Information, message.Level);
             Assert.Equal("Message", message.Message);
         }
+
+        [Fact]
+        public void Doesnt_log_exception_when_not_present()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+            
+            logger.LogInformation("Message");
+
+            var message = Assert.Single(provider.Logs);
+            Assert.NotNull(message);
+            Assert.Null(message.Exception);
+        }
+
+        [Fact]
+        public void Logs_exception()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            var loggedException = new Exception("Exception test text");
+            logger.LogError(loggedException, "Message");
+
+            var message = Assert.Single(provider.Logs);
+            Assert.NotNull(message);
+            Assert.Equal(loggedException, message.Exception);
+        }
     }
 }

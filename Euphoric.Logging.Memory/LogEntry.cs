@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 
 namespace Euphoric.Logging.Memory
 {
@@ -10,11 +11,12 @@ namespace Euphoric.Logging.Memory
         /// <summary>
         /// Creates logged entry
         /// </summary>
-        public LogEntry(LogLevel level, string message, string categoryName)
+        public LogEntry(LogLevel level, string message, string categoryName, Exception? exception)
         {
             Level = level;
             Message = message;
             CategoryName = categoryName;
+            Exception = exception;
         }
 
         /// <summary>
@@ -31,5 +33,10 @@ namespace Euphoric.Logging.Memory
         /// Logged message
         /// </summary>
         public string Message { get; }
+
+        /// <summary>
+        /// Logged exception
+        /// </summary>
+        public Exception? Exception { get; }
     }
 }
