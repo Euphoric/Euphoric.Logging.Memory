@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Euphoric.Logging.Memory", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Euphoric.Logging.Memory.Test", "Euphoric.Logging.Memory.Test\Euphoric.Logging.Memory.Test.csproj", "{FEECB4F9-3ECF-4A5F-99F3-0ABA4CBA766D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euphoric.Logging.Memory.Sample", "Euphoric.Logging.Memory.Sample\Euphoric.Logging.Memory.Sample.csproj", "{AA275979-C805-4DC8-AB89-DB14B9DC31CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Euphoric.Logging.Memory.Sample", "Euphoric.Logging.Memory.Sample\Euphoric.Logging.Memory.Sample.csproj", "{AA275979-C805-4DC8-AB89-DB14B9DC31CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D840AA5C-A9BE-4EC5-B47B-E26A293718BC}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
