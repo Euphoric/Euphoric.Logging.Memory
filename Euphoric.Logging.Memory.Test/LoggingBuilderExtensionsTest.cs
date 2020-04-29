@@ -43,5 +43,33 @@ namespace Euphoric.Logging.Memory
                 Assert.Equal(logConfig, res);
             });
         }
+
+        [Fact]
+        public void Provider_supports_shared_state()
+        {
+            // register memory logger
+            ServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddLogging(logConfig =>
+                logConfig.AddMemoryLogger());
+            var sp = serviceCollection.BuildServiceProvider();
+
+            // log message
+            var factory = sp.GetRequiredService<ILoggerFactory>();
+            var logger1 = factory.CreateLogger("Logger1");
+            var logger2 = factory.CreateLogger("Logger2");
+
+            using (logger1.BeginScope(new Dictionary<string, object>() {{"Key1", "Value1"}}))
+            {
+                logger2.LogInformation("Information message");
+            }
+
+            // retrieve logged events from memory logger provider
+            var memoryLogger = sp.GetRequiredService<IMemoryLogSource>();
+            
+            var logEntry = Assert.Single(memoryLogger.Logs);
+            Assert.NotNull(logEntry);
+
+            Assert.Equal("Value1", logEntry.Properties["Key1"]);
+        }
     }
 }

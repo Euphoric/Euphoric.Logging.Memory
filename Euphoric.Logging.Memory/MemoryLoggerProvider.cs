@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions.Internal;
 
 namespace Euphoric.Logging.Memory
 {
     /// <summary>
     /// Provider for logging into memory.
     /// </summary>
-    public class MemoryLoggerProvider : ILoggerProvider, IMemoryLogSource
+    public class MemoryLoggerProvider : ILoggerProvider, IMemoryLogSource, ISupportExternalScope
     {
         private class MemoryLogger : ILogger
         {
             private readonly MemoryLoggerProvider _provider;
             private readonly string _name;
-            private readonly IExternalScopeProvider _scopeProvider = new LoggerExternalScopeProvider();
+            private readonly IExternalScopeProvider _scopeProvider;
 
-            public MemoryLogger(MemoryLoggerProvider provider, string name)
+            public MemoryLogger(MemoryLoggerProvider provider, string name, IExternalScopeProvider? scopeProvider)
             {
                 _provider = provider;
                 _name = name;
+                _scopeProvider = scopeProvider ?? new LoggerExternalScopeProvider();
             }
 
             public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
@@ -78,6 +76,7 @@ namespace Euphoric.Logging.Memory
         }
 
         private readonly List<LogEntry> _logs = new List<LogEntry>();
+        private IExternalScopeProvider? _scopeProvider;
 
         /// <inheritdoc />
         public IReadOnlyList<LogEntry> Logs => _logs;
@@ -85,13 +84,19 @@ namespace Euphoric.Logging.Memory
         /// <inheritdoc />
         public ILogger CreateLogger(string categoryName)
         {
-            return new MemoryLogger(this, categoryName);
+            return new MemoryLogger(this, categoryName, _scopeProvider);
         }
 
         /// <inheritdoc />
         public void Dispose()
         {
             // Nothing to dispose
+        }
+
+        /// <inheritdoc />
+        public void SetScopeProvider(IExternalScopeProvider scopeProvider)
+        {
+            _scopeProvider = scopeProvider;
         }
     }
 }
