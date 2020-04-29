@@ -87,5 +87,38 @@ namespace Euphoric.Logging.Memory
             Assert.NotNull(message);
             Assert.Equal(loggedException, message.Exception);
         }
+
+        [Theory]
+        [InlineData("string value")]
+        [InlineData(1317)]
+        [InlineData(1317.0d)]
+        public void Logs_state_properties(object value)
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            logger.LogInformation("Message {PropertyValue}", value);
+
+            var log = Assert.Single(provider.Logs);
+
+            Assert.Equal(value, log.Properties["PropertyValue"]);
+        }
+
+        [Fact]
+        public void Logs_multiple_state_properties()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            var dateTime = new DateTime(2020, 04, 29, 11, 13, 21);
+
+            logger.LogInformation("Message {Prop1} {Prop2} {Prop3}", true, 19, dateTime);
+
+            var log = Assert.Single(provider.Logs);
+
+            Assert.Equal(true, log.Properties["Prop1"]);
+            Assert.Equal(19, log.Properties["Prop2"]);
+            Assert.Equal(dateTime, log.Properties["Prop3"]);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
 namespace Euphoric.Logging.Memory
@@ -11,12 +12,13 @@ namespace Euphoric.Logging.Memory
         /// <summary>
         /// Creates logged entry
         /// </summary>
-        public LogEntry(LogLevel level, string message, string categoryName, Exception? exception)
+        public LogEntry(LogLevel level, string message, string categoryName, Exception? exception, IReadOnlyDictionary<string, object> properties)
         {
             Level = level;
             Message = message;
             CategoryName = categoryName;
             Exception = exception;
+            Properties = properties;
         }
 
         /// <summary>
@@ -38,5 +40,10 @@ namespace Euphoric.Logging.Memory
         /// Logged exception
         /// </summary>
         public Exception? Exception { get; }
+
+        /// <summary>
+        /// Properties retrieved from state and scope.
+        /// </summary>
+        public IReadOnlyDictionary<string, object> Properties { get; }
     }
 }

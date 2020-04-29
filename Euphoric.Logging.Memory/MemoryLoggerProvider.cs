@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions.Internal;
 
@@ -24,7 +25,12 @@ namespace Euphoric.Logging.Memory
             public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
             {
                 var message = formatter(state, exception);
-                _provider._logs.Add(new LogEntry(logLevel, message, _name, exception));
+                var properties = new Dictionary<string, object>();
+                if (state is IEnumerable<KeyValuePair<string, object>> kvpState)
+                {
+                    properties = kvpState.ToDictionary(x => x.Key, x => x.Value);
+                }
+                _provider._logs.Add(new LogEntry(logLevel, message, _name, exception, properties));
             }
 
             public bool IsEnabled(LogLevel logLevel)
