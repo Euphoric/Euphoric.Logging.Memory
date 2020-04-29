@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Xunit;
 
@@ -119,6 +120,60 @@ namespace Euphoric.Logging.Memory
             Assert.Equal(true, log.Properties["Prop1"]);
             Assert.Equal(19, log.Properties["Prop2"]);
             Assert.Equal(dateTime, log.Properties["Prop3"]);
+        }
+
+        [Fact]
+        public void Logs_scope_property()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            using (logger.BeginScope("Scope value"))
+            {
+                logger.LogInformation("Log within scope");
+            }
+            
+            var log = Assert.Single(provider.Logs);
+            var scopeArray = Assert.IsAssignableFrom<IEnumerable<object>>(log.Properties["Scope"]);
+            Assert.Equal(new object[]{"Scope value"}, scopeArray);
+        }
+
+        [Fact]
+        public void Doesnt_log_scope_property_outside_scope()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            using (logger.BeginScope("Scope value"))
+            {
+            }
+            
+            logger.LogInformation("Log outside scope");
+
+            var log = Assert.Single(provider.Logs);
+            Assert.False(log.Properties.ContainsKey("Scope"));
+        }
+
+        [Fact]
+        public void Logs_nested_scopes()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            using (logger.BeginScope("Value 1"))
+            {
+                using (logger.BeginScope(false))
+                {
+                    using (logger.BeginScope(3))
+                    {
+                        logger.LogInformation("Log within scope");
+                    }
+                }
+            }
+            
+            var log = Assert.Single(provider.Logs);
+            var scopeArray = Assert.IsAssignableFrom<IEnumerable<object>>(log.Properties["Scope"]);
+            Assert.Equal(new object[] {"Value 1", false, 3}, scopeArray);
         }
     }
 }
