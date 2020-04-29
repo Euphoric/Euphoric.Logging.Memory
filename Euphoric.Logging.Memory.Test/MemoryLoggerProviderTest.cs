@@ -175,5 +175,69 @@ namespace Euphoric.Logging.Memory
             var scopeArray = Assert.IsAssignableFrom<IEnumerable<object>>(log.Properties["Scope"]);
             Assert.Equal(new object[] {"Value 1", false, 3}, scopeArray);
         }
+
+        [Fact]
+        public void Logs_dictionary_scope()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            using (logger.BeginScope(new Dictionary<string, object>{{"Key1", "Value1"},{"Key2", 2} }))
+            {
+                logger.LogInformation("Log within scope");
+            }
+            
+            var log = Assert.Single(provider.Logs);
+            Assert.False(log.Properties.ContainsKey("Scope"));
+            Assert.Equal("Value1", log.Properties["Key1"]);
+            Assert.Equal(2, log.Properties["Key2"]);
+        }
+
+        [Fact]
+        public void Logs_nested_dictionary_scopes()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            using (logger.BeginScope(new Dictionary<string, object>{{"Key1", "Value1"} }))
+            {
+                using (logger.BeginScope(new Dictionary<string, object>{{"Key2", 2} }))
+                {
+                    using (logger.BeginScope(new Dictionary<string, object>{{"Key3", 3.0d} }))
+                    {
+                        logger.LogInformation("Log within scope");
+                    }
+                }
+            }
+            
+            var log = Assert.Single(provider.Logs);
+            Assert.False(log.Properties.ContainsKey("Scope"));
+            Assert.Equal("Value1", log.Properties["Key1"]);
+            Assert.Equal(2, log.Properties["Key2"]);
+            Assert.Equal(3.0d, log.Properties["Key3"]);
+        }
+
+        [Fact]
+        public void Logs_nested_dictionary_scopes_with_replacement()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            using (logger.BeginScope(new Dictionary<string, object>{{"Key1", "Value1"} }))
+            {
+                using (logger.BeginScope(new Dictionary<string, object>{{"Key2", 2} }))
+                {
+                    using (logger.BeginScope(new Dictionary<string, object>{{"Key1", 1}, {"Key2", "Value2"} }))
+                    {
+                        logger.LogInformation("Log within scope");
+                    }
+                }
+            }
+            
+            var log = Assert.Single(provider.Logs);
+            Assert.False(log.Properties.ContainsKey("Scope"));
+            Assert.Equal(1, log.Properties["Key1"]);
+            Assert.Equal("Value2", log.Properties["Key2"]);
+        }
     }
 }

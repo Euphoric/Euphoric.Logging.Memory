@@ -42,20 +42,31 @@ namespace Euphoric.Logging.Memory
             {
                 var scopeProperties = new Dictionary<string, object>();
 
-                _scopeProvider.ForEachScope((scope, properites) =>
-                    {
-                        if (properites.TryGetValue("Scope", out object scopePropertyList))
-                        {
-                            (scopePropertyList as List<object>)?.Add(scope);
-                        }
-                        else
-                        {
-                            properites["Scope"] = new List<object> {scope};
-                        }
-
-                    }, scopeProperties);
+                _scopeProvider.ForEachScope(AddScopeToProperties, scopeProperties);
 
                 return scopeProperties;
+            }
+
+            private static void AddScopeToProperties(object scope, Dictionary<string, object> properties)
+            {
+                if (scope is IEnumerable<KeyValuePair<string, object>> kvpScope)
+                {
+                    foreach (var keyValuePair in kvpScope)
+                    {
+                        properties[keyValuePair.Key] = keyValuePair.Value;
+                    }
+                }
+                else
+                {
+                    if (properties.TryGetValue("Scope", out object scopePropertyList))
+                    {
+                        (scopePropertyList as List<object>)?.Add(scope);
+                    }
+                    else
+                    {
+                        properties["Scope"] = new List<object> {scope};
+                    }
+                }
             }
 
             public bool IsEnabled(LogLevel logLevel)
