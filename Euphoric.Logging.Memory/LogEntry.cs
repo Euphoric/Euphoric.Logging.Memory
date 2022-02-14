@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace Euphoric.Logging.Memory
@@ -45,5 +46,25 @@ namespace Euphoric.Logging.Memory
         /// Properties retrieved from state and scope.
         /// </summary>
         public IReadOnlyDictionary<string, object> Properties { get; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            var lastCategoryPart = CategoryName.Split('.').Last();
+            var trimmedLogMessage = Message.Substring(0, Math.Min(Message.Length, 50));
+            if (trimmedLogMessage.Length == 50)
+                trimmedLogMessage += "...";
+            List<string> parts = new List<string>()
+            {
+                lastCategoryPart,
+                Level.ToString(),
+                trimmedLogMessage
+            };
+            if (Exception != null)
+            {
+                parts.Add(Exception.Message);
+            }
+            return $"[{string.Join(";", parts)}]";
+        }
     }
 }
