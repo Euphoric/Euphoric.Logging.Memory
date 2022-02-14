@@ -12,7 +12,7 @@ namespace Euphoric.Logging.Memory
         private IExternalScopeProvider? _scopeProvider;
 
         /// <inheritdoc />
-        public IReadOnlyList<LogEntry> Logs => _logs;
+        public IReadOnlyList<LogEntry> Logs => _logs.ToArray();
 
         /// <inheritdoc />
         public ILogger CreateLogger(string categoryName)

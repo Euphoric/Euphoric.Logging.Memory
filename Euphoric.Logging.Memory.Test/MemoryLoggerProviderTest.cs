@@ -239,5 +239,21 @@ namespace Euphoric.Logging.Memory
             Assert.Equal(1, log.Properties["Key1"]);
             Assert.Equal("Value2", log.Properties["Key2"]);
         }
+        
+        [Fact]
+        public void Returned_logs_are_a_copy()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+
+            var firstLogs = provider.Logs;
+            
+            logger.LogInformation("Message");
+            
+            var secondLogs = provider.Logs;
+            
+            Assert.Equal(0, firstLogs.Count);
+            Assert.Equal(1, secondLogs.Count);
+        }
     }
 }
