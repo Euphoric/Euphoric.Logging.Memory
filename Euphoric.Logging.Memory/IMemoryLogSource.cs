@@ -11,5 +11,10 @@ namespace Euphoric.Logging.Memory
         /// Collection of logged entries.
         /// </summary>
         IReadOnlyList<LogEntry> Logs { get; }
+
+        /// <summary>
+        /// Clears currently stored logs.
+        /// </summary>
+        void ClearLogs();
     }
 }

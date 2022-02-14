@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using Xunit;
 
@@ -254,6 +255,24 @@ namespace Euphoric.Logging.Memory
             
             Assert.Equal(0, firstLogs.Count);
             Assert.Equal(1, secondLogs.Count);
+        }
+        
+        [Fact]
+        public void Can_clear_logs()
+        {
+            MemoryLoggerProvider provider = new MemoryLoggerProvider();
+            var logger = provider.CreateLogger("TestLogger");
+            
+            logger.LogInformation("Message 1");
+
+            Assert.Equal(new[]{"Message 1"}, provider.Logs.Select(x=>x.Message));
+
+            provider.ClearLogs();
+
+            Assert.Empty(provider.Logs);
+            
+            logger.LogInformation("Message 2");
+            Assert.Equal(new[]{"Message 2"}, provider.Logs.Select(x=>x.Message));
         }
     }
 }

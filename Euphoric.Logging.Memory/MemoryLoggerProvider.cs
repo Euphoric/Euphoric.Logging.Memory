@@ -15,6 +15,12 @@ namespace Euphoric.Logging.Memory
         public IReadOnlyList<LogEntry> Logs => _logs.ToArray();
 
         /// <inheritdoc />
+        public void ClearLogs()
+        {
+            _logs.Clear();
+        }
+
+        /// <inheritdoc />
         public ILogger CreateLogger(string categoryName)
         {
             return new MemoryLogger(this, categoryName, _scopeProvider);
